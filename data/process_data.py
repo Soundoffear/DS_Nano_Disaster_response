@@ -40,7 +40,7 @@ def clean_data(df):
 
 def save_data(df, database_filename):
     engine = create_engine('sqlite:///'+database_filename)
-    df.to_sql(database_filename.split('.')[0], engine, index=False)
+    df.to_sql('DisasterResponse', engine, index=False)
 
 
 def main():

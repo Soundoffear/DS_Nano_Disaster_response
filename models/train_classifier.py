@@ -1,25 +1,72 @@
 import sys
+import pandas as pd
+import numpy as np
+import re
+import pickle
 
+from sklearn.pipeline import Pipeline, FeatureUnion
+from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.multioutput import MultiOutputClassifier
+from sklearn.metrics import f1_score, classification_report
+
+import nltk
+nltk.download(['punkt', 'wordnet', 'stopwords'])
+from nltk.tokenize import word_tokenize
+from nltk.stem import WordNetLemmatizer
+from nltk.corpus import stopwords
+
+from sqlalchemy import create_engine
 
 def load_data(database_filepath):
-    pass
+    engine = create_engine('sqlite:///'+database_filepath)
+    df = pd.read_sql_table('DisasterResponse', engine)
+    X = df.message
+    Y = df.iloc[:, 4:]
+    cat_names = Y.columns
+    return X, Y, cat_names
 
 
 def tokenize(text):
-    pass
+    tokens = word_tokenize(text)
+    lemmatizer = WordNetLemmatizer()
+    
+    cleaned_tokens = list()
+    
+    for tok in tokens:
+        clean_tok = lemmatizer.lemmatize(tok).lower().strip()
+        cleaned_tokens.append(clean_tok)
+       
+    return cleaned_tokens
 
 
 def build_model():
-    pass
+    model = Pipeline([
+        ('vect', CountVectorizer(tokenizer=tokenize)),
+        ('tfidf', TfidfTransformer()),
+        ('clf', MultiOutputClassifier(RandomForestClassifier())),
+    ])
+    
+    return model
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
-    pass
-
+    y_pred = model.predict(X_test)
+    y_test_y = Y_test.values
+    y_pred_v = y_pred
+    
+    score_list = list()
+    for i, col_index in enumerate(category_names):
+        score = f1_score(y_test_y[i], y_pred_v[i], average='weighted')
+        score_list.append(score)
+    
+    print('AVERAGE SCORE: ', np.asarray(score_list).mean())
 
 def save_model(model, model_filepath):
-    pass
-
+    fileName = model_filepath
+    fileSave = open(fileName, 'wb')
+    pickle.dump(model, fileSave)
 
 def main():
     if len(sys.argv) == 3:
