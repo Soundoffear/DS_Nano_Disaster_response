@@ -41,3 +41,9 @@ The project has been devided into 3 steps:
 * models/train_classifier.py - file with all the code to train your classifier
 
 * README.md - this description
+
+### Libraries used:
+- pandas - library for data processing
+- numpy - library for numerical data processing
+- sklearn - library for machine learning
+- sqlalchemy - library for reading and writing into SQL databases
