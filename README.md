@@ -29,18 +29,26 @@ The project has been devided into 3 steps:
 
 
 ### Files in this notebook:
-* app/templates/go.html - file for web app
-* app/templates/master.html - file for web app
-* app/run.py - python file responsible for running web app
+<ul> 
+<li> app/templates/go.html - file for web app </li>
+<li> app/templates/master.html - file for web app </li>
+<li> app/run.py - python file responsible for running web app </li>
+</ul>
 
-* data/DisasterResponse.db - database of cleaned messages
-* data/disaster_categories.csv - provided file of classified messages
-* data/disaster_messages.csv - provided file of messages
-* data/process_data.py - file with all the code to process data
+<ul>
+<li> data/DisasterResponse.db - database of cleaned messages </li>
+<li> data/disaster_categories.csv - provided file of classified messages </li>
+<li> data/disaster_messages.csv - provided file of messages </li>
+<li> data/process_data.py - file with all the code to process data </li>
+</ul>
 
-* models/train_classifier.py - file with all the code to train your classifier
+<ul>
+<li> models/train_classifier.py - file with all the code to train your classifier </li>
+</ul>
 
-* README.md - this description
+<ul>
+<li> README.md - this description </li>
+</ul>
 
 ### Libraries used:
 - pandas - library for data processing
