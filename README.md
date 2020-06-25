@@ -29,4 +29,15 @@ The project has been devided into 3 steps:
 
 
 ### Files in this notebook:
-* app 
+* app/templates/go.html - file for web app
+* app/templates/master.html - file for web app
+* app/run.py - python file responsible for running web app
+
+* data/DisasterResponse.db - database of cleaned messages
+* data/disaster_categories.csv - provided file of classified messages
+* data/disaster_messages.csv - provided file of messages
+* data/process_data.py - file with all the code to process data
+
+* models/train_classifier.py - file with all the code to train your classifier
+
+* README.md - this description
