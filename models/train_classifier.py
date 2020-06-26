@@ -57,7 +57,7 @@ def build_model():
         'clf__estimator__min_samples_split': [2, 4],
     }
 
-    cv_model = GridSearchCV(pipeline, param_grid=parameters)
+    cv_model = GridSearchCV(model, param_grid=parameters)
     
     return cv_model
 

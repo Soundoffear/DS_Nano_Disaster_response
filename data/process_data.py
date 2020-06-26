@@ -22,8 +22,8 @@ def clean_data(df):
     #creating colum names
     category_columns = [row[x].str.split('-')[0][0] for x in row]
     categories.columns = category_columns #setting proper column names
-    
-    categories.related = categories.related.apply(lambda x: 'related-1' if 'related-2' in x esle x)
+
+    categories.related = categories.related.apply(lambda x: 'related-1' if 'related-2' in x else x)
     
     #converting strings into numbers (the values looks like 'aid-1' so it makes is just 1') and the convert into integers
     for column in categories:
