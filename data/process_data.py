@@ -23,6 +23,8 @@ def clean_data(df):
     category_columns = [row[x].str.split('-')[0][0] for x in row]
     categories.columns = category_columns #setting proper column names
     
+    categories.related = categories.related.apply(lambda x: 'related-1' if 'related-2' in x esle x)
+    
     #converting strings into numbers (the values looks like 'aid-1' so it makes is just 1') and the convert into integers
     for column in categories:
         categories[column] = categories[column].apply(lambda x: x[-1])
@@ -40,7 +42,7 @@ def clean_data(df):
 
 def save_data(df, database_filename):
     engine = create_engine('sqlite:///'+database_filename)
-    df.to_sql('DisasterResponse', engine, index=False)
+    df.to_sql('DisasterResponse', engine, index=False, if_exists='replace')
 
 
 def main():

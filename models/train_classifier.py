@@ -47,8 +47,19 @@ def build_model():
         ('tfidf', TfidfTransformer()),
         ('clf', MultiOutputClassifier(RandomForestClassifier())),
     ])
+
+    parameters = {
+        'tfidf__use_idf': (True, False),
+        'tfidf__smooth_idf': [True, False],
+        'vect__max_df': (0.5, 0.75, 1.0),
+        'vect__max_features': (None, 5000, 10000),
+        'clf__estimator__n_estimators': [50, 100],
+        'clf__estimator__min_samples_split': [2, 4],
+    }
+
+    cv_model = GridSearchCV(pipeline, param_grid=parameters)
     
-    return model
+    return cv_model
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
@@ -60,6 +71,7 @@ def evaluate_model(model, X_test, Y_test, category_names):
     for i, col_index in enumerate(category_names):
         score = f1_score(y_test_y[i], y_pred_v[i], average='weighted')
         score_list.append(score)
+        print(str(col_index) + ": " + str(score))
     
     print('AVERAGE SCORE: ', np.asarray(score_list).mean())
 
